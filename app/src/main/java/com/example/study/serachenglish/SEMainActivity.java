@@ -2,6 +2,7 @@ package com.example.study.serachenglish;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class SEMainActivity extends AppCompatActivity {
     private EditText mEdit;
     private Button mSubmitBtn;
     private TextView mResult,mResult1,mResult2,mResult3,mResult4;
+    private SearchView mSearchView;
 
 
     @Override
@@ -36,12 +38,32 @@ public class SEMainActivity extends AppCompatActivity {
         mResult3 = findViewById(R.id.act_result3);
         mResult4 = findViewById(R.id.act_result4);
         mResult1 = findViewById(R.id.act_result1);
+        mSearchView = findViewById(R.id.act_search);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mSearchView.setQueryHint("请输入你要查询的英文单词");
+        mSearchView.setSubmitButtonEnabled(true);
+        mSearchView.setIconifiedByDefault(false);
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
