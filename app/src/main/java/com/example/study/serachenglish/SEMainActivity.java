@@ -78,6 +78,7 @@ public class SEMainActivity extends AppCompatActivity {
                     return;
                 }
                 if (s.matches("[a-zA-Z]+")) {
+                    //进行相似度匹配
                     getResultWord(s);
                 } else {
                     Toast.makeText(getApplicationContext(), "查询的单词含有除英语单词外的其他单词", Toast.LENGTH_SHORT).show();
@@ -114,7 +115,7 @@ public class SEMainActivity extends AppCompatActivity {
         for (int i = 0; i < mModels.size(); i++) {
             String s1 = mModels.get(i);
             double res = getStringDistance(s, s1);
-            if (res < 3.0) {
+            if (res < 2.0) {
                 mFlag = true;
                 mRes[count].setVisibility(View.VISIBLE);
                 mRes[count].setText(s1);
