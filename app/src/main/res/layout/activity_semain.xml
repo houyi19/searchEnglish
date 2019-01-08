@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SEMainActivity">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,32 +58,40 @@
         android:id="@+id/act_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@drawable/item_bg"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/act_result1"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@drawable/item_bg"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/act_result2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@drawable/item_bg"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/act_result3"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@drawable/item_bg"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/act_result4"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@drawable/item_bg"
         android:visibility="gone" />
 
 </LinearLayout>

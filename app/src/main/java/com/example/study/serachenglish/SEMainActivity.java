@@ -23,6 +23,7 @@ public class SEMainActivity extends AppCompatActivity {
     private Button mSubmitBtn;
     private TextView mResult,mResult1,mResult2,mResult3,mResult4;
     private SearchView mSearchView;
+    private boolean mFlag = false;
 
 
     @Override
@@ -87,6 +88,7 @@ public class SEMainActivity extends AppCompatActivity {
     }
 
     private void getResultWord(String s) {
+        mFlag = false;
         TextView[] mRes = {mResult, mResult1, mResult2, mResult3, mResult4};
         int count = 0;
         for (int i = 0; i < mModels.size(); i++) {
@@ -96,6 +98,7 @@ public class SEMainActivity extends AppCompatActivity {
             }
             double res = getStringDistance(s, s1);
             if (res < 3.0) {
+                mFlag = true;
                 mRes[count].setVisibility(View.VISIBLE);
                 mRes[count].setText(s1);
                 if (count == 4) {
@@ -103,6 +106,15 @@ public class SEMainActivity extends AppCompatActivity {
                 }
                 count++;
             }
+        }
+
+        if (mFlag == false) {
+            mResult.setVisibility(View.VISIBLE);
+            mResult.setText("词库暂时无法匹配到该单词");
+            mResult1.setVisibility(View.GONE);
+            mResult2.setVisibility(View.GONE);
+            mResult3.setVisibility(View.GONE);
+            mResult4.setVisibility(View.GONE);
         }
     }
 
