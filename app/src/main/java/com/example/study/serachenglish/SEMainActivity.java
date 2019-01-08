@@ -50,21 +50,29 @@ public class SEMainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "查询的单词请勿为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                getResultWord(s);
+                if (s.matches("[a-zA-Z]+")) {
+                    getResultWord(s);
+                } else {
+                    Toast.makeText(getApplicationContext(), "查询的单词含有除英语单词外的其他单词", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     private void getResultWord(String s) {
-        String resstr = "";
-        TextView[] mRes = {mResult,mResult1,mResult2,mResult3,mResult4};
+        TextView[] mRes = {mResult, mResult1, mResult2, mResult3, mResult4};
         int count = 0;
         for (int i = 0; i < mModels.size(); i++) {
             String s1 = mModels.get(i);
             if (s1.isEmpty()) {
-                Log.i("test2",s1);
+                Log.i("test2", s1);
             }
-            double res = getStringDistance(s,s1);
+            double res = getStringDistance(s, s1);
             if (res < 3.0) {
                 mRes[count].setVisibility(View.VISIBLE);
                 mRes[count].setText(s1);
