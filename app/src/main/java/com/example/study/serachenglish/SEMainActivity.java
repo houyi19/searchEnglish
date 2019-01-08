@@ -2,6 +2,8 @@ package com.example.study.serachenglish;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
@@ -19,10 +21,11 @@ import java.util.ArrayList;
 public class SEMainActivity extends AppCompatActivity {
 
     private ArrayList<String> mModels;
-    private EditText mEdit;
+    private EditText mEdit,mSearchView;
     private Button mSubmitBtn;
     private TextView mResult,mResult1,mResult2,mResult3,mResult4;
-    private SearchView mSearchView;
+    private RecyclerView mRecycler;
+    private WordAdapter mAdapter;
     private boolean mFlag = false;
 
 
@@ -40,29 +43,29 @@ public class SEMainActivity extends AppCompatActivity {
         mResult4 = findViewById(R.id.act_result4);
         mResult1 = findViewById(R.id.act_result1);
         mSearchView = findViewById(R.id.act_search);
+        mRecycler = findViewById(R.id.act_recyler);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecycler.setLayoutManager(mLinearLayoutManager);
+        mAdapter = new WordAdapter();
+        mRecycler.setAdapter(mAdapter);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mSearchView.setQueryHint("请输入你要查询的英文单词");
-        mSearchView.setSubmitButtonEnabled(true);
-        mSearchView.setIconifiedByDefault(false);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
+            public void onClick(View v) {
+                mResult.setVisibility(View.GONE);
+                mResult1.setVisibility(View.GONE);
+                mResult2.setVisibility(View.GONE);
+                mResult3.setVisibility(View.GONE);
+                mResult4.setVisibility(View.GONE);
             }
         });
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
@@ -87,15 +90,13 @@ public class SEMainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    //获取形近词
     private void getResultWord(String s) {
         mFlag = false;
         TextView[] mRes = {mResult, mResult1, mResult2, mResult3, mResult4};
         int count = 0;
         for (int i = 0; i < mModels.size(); i++) {
             String s1 = mModels.get(i);
-            if (s1.isEmpty()) {
-                Log.i("test2", s1);
-            }
             double res = getStringDistance(s, s1);
             if (res < 3.0) {
                 mFlag = true;
@@ -118,6 +119,7 @@ public class SEMainActivity extends AppCompatActivity {
         }
     }
 
+    //将txt读取到mAllmodel里面，以便于后期直接进行比较
     private void duquTxt(ArrayList<String> models) {
         try {
             InputStreamReader fileReader = new InputStreamReader(getResources().openRawResource(R.raw.words));
@@ -136,6 +138,7 @@ public class SEMainActivity extends AppCompatActivity {
         }
     }
 
+    //基于Levenshtein Distance算法进行匹配。
     public double getStringDistance(String s1, String s2) {
 
         double distance[][];// 定义距离表
