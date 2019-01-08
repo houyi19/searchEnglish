@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
-        android:text="无网络情况下查询形近词:" />
+        android:text="无网络情况下查询形近词:"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,11 +23,11 @@
         android:weightSum="100">
 
         <EditText
-            android:hint="请输入你要查询的英文单词"
             android:id="@+id/act_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="70" />
+            android:layout_weight="70"
+            android:hint="请输入你要查询的英文单词" />
 
         <Button
             android:id="@+id/act_submit"
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:background="@drawable/item_bg"
+        android:textSize="14sp"
         android:visibility="gone" />
 
     <TextView
@@ -50,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:background="@drawable/item_bg"
+        android:textSize="14sp"
         android:visibility="gone" />
 
     <TextView
@@ -58,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:background="@drawable/item_bg"
+        android:textSize="14sp"
         android:visibility="gone" />
 
     <TextView
@@ -66,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:background="@drawable/item_bg"
+        android:textSize="14sp"
         android:visibility="gone" />
 
     <TextView
@@ -74,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:background="@drawable/item_bg"
+        android:textSize="14sp"
         android:visibility="gone" />
 
 
@@ -82,21 +88,23 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="10dp"
-        android:text="有网络情况下查询形近词:" />
+        android:text="有网络情况下查询形近词:"
+        android:textSize="18sp" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="100"
-        android:orientation="horizontal">
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
         <EditText
-            android:layout_weight="70"
-            android:hint="请输入你要查询的英文单词"
             android:id="@+id/act_search"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="70"
+            android:hint="请输入你要查询的英文单词" />
 
         <Button
             android:id="@+id/act_submit_online"

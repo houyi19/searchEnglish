@@ -22,7 +22,7 @@ public class SEMainActivity extends AppCompatActivity {
 
     private ArrayList<String> mModels;
     private EditText mEdit,mSearchView;
-    private Button mSubmitBtn;
+    private Button mSubmitBtn,mSubmitOnlineBtn;
     private TextView mResult,mResult1,mResult2,mResult3,mResult4;
     private RecyclerView mRecycler;
     private WordAdapter mAdapter;
@@ -37,6 +37,7 @@ public class SEMainActivity extends AppCompatActivity {
         duquTxt(mModels);
         mEdit = findViewById(R.id.act_txt);
         mSubmitBtn = findViewById(R.id.act_submit);
+        mSubmitOnlineBtn = findViewById(R.id.act_submit_online);
         mResult = findViewById(R.id.act_result);
         mResult2 = findViewById(R.id.act_result2);
         mResult3 = findViewById(R.id.act_result3);
@@ -78,6 +79,21 @@ public class SEMainActivity extends AppCompatActivity {
                 }
                 if (s.matches("[a-zA-Z]+")) {
                     getResultWord(s);
+                } else {
+                    Toast.makeText(getApplicationContext(), "查询的单词含有除英语单词外的其他单词", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        mSubmitOnlineBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s = mSearchView.getText().toString();
+                if (s.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "查询的单词请勿为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (s.matches("[a-zA-Z]+")) {
+                    //进行网络请求
                 } else {
                     Toast.makeText(getApplicationContext(), "查询的单词含有除英语单词外的其他单词", Toast.LENGTH_SHORT).show();
                 }
