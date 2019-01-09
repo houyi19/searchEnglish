@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 public class SEMainActivity extends AppCompatActivity {
 
     private ArrayList<String> mModels;
@@ -27,6 +29,7 @@ public class SEMainActivity extends AppCompatActivity {
     private RecyclerView mRecycler;
     private WordAdapter mAdapter;
     private boolean mFlag = false;
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
 
     @Override
@@ -45,10 +48,8 @@ public class SEMainActivity extends AppCompatActivity {
         mResult1 = findViewById(R.id.act_result1);
         mSearchView = findViewById(R.id.act_search);
         mRecycler = findViewById(R.id.act_recyler);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecycler.setLayoutManager(mLinearLayoutManager);
-        mAdapter = new WordAdapter();
-        mRecycler.setAdapter(mAdapter);
     }
 
     @Override
@@ -95,6 +96,9 @@ public class SEMainActivity extends AppCompatActivity {
                 }
                 if (s.matches("[a-zA-Z]+")) {
                     //进行网络请求
+                    mAdapter = new WordAdapter();
+                    mRecycler.setAdapter(mAdapter);
+                    FetchWordData(s);
                 } else {
                     Toast.makeText(getApplicationContext(), "查询的单词含有除英语单词外的其他单词", Toast.LENGTH_SHORT).show();
                 }
@@ -105,6 +109,12 @@ public class SEMainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mCompositeDisposable.dispose();
     }
 
     //获取形近词
@@ -206,5 +216,9 @@ public class SEMainActivity extends AppCompatActivity {
             min = c;
         }
         return min;
+    }
+
+    private void FetchWordData(String word) {
+        mCompositeDisposable.add(NetHandler.FetchWord(word).subscribe());
     }
 }
